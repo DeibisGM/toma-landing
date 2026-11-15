@@ -14,7 +14,7 @@ interface Props {
 const {
   title = 'Toma. Decide qué ver, juntos.',
   description = 'Toma guarda lo que te interesa y ayuda a tu grupo a decidir qué ver sin darle mil vueltas.',
-  image = '/images/toma-brand.webp',
+  image = '/images/og-toma.png',
   type = 'website',
   noindex = false
 } = Astro.props;
@@ -25,15 +25,17 @@ const socialImage = new URL(image, siteUrl).toString();
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="no-js">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#0b0b0d" />
+    <script is:inline>document.documentElement.classList.remove('no-js')</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2b66ee" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/webp" href="/images/toma-brand.webp" />
+    <link rel="preload" href="/fonts/sora.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="icon" type="image/webp" href="/images/toma-icon.webp" />
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="Toma" />
     <meta property="og:locale" content="es_ES" />
@@ -53,24 +55,6 @@ const socialImage = new URL(image, siteUrl).toString();
       <slot />
     </main>
     <Footer />
-    <script is:inline>
-      const menuButton = document.querySelector('[data-menu-button]');
-      const menu = document.querySelector('[data-menu]');
-      menuButton?.addEventListener('click', () => {
-        const expanded = menuButton.getAttribute('aria-expanded') === 'true';
-        menuButton.setAttribute('aria-expanded', String(!expanded));
-        menu?.toggleAttribute('data-open', !expanded);
-      });
-
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute('data-visible', 'true');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('[data-reveal]').forEach((element) => revealObserver.observe(element));
-    </script>
+    <script src="/site.js" defer></script>
   </body>
 </html>

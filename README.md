@@ -4,7 +4,7 @@ Landing estática para Toma, construida con Astro.
 
 ![Vista previa de la landing](public/readme-preview.png)
 
-La portada usa las capturas reales de la app, una navegación responsive y un lenguaje visual oscuro, editorial y orientado a producto.
+La landing usa la identidad de la app: cobalto de marca con la nube de pixeles, boletos amarillos, pegatinas 3D y capturas reales (Sora + Inter, paleta de `TomaColors`).
 
 ## Desarrollo
 

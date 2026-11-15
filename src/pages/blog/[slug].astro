@@ -7,7 +7,9 @@ export async function getStaticPaths() {
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
+import { coverFor } from '../../lib/covers';
 const { post } = Astro.props;
+const cover = coverFor(post.data.category);
 const { Content } = await render(post);
 ---
 
@@ -20,7 +22,7 @@ const { Content } = await render(post);
       <p class="article-lede">{post.data.description}</p>
       <div class="article-byline"><span>{post.data.author}</span><time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</time></div>
     </header>
-    <div class="article-cover" data-reveal><img src={post.data.image} alt="" width="1400" height="900" /></div>
+    <div class="article-cover" data-reveal data-pixels style={`background:${cover.bg}`}><img src={cover.sticker} alt="" width="220" height="220" /></div>
     <div class="article-content prose"><Content /></div>
   </article>
   <script type="application/ld+json" set:html={JSON.stringify({

@@ -14,13 +14,15 @@ interface Props {
   featured?: boolean;
 }
 
+import { coverFor } from '../lib/covers';
 const { post, featured = false } = Astro.props;
+const cover = coverFor(post.data.category);
 const href = `/blog/${post.id}/`;
 ---
 
 <article class:list={["blog-card", { featured }]}>
-  <a class="blog-image" href={href} aria-label={`Leer ${post.data.title}`}>
-    <img src={post.data.image} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+  <a class="blog-image" href={href} aria-label={`Leer ${post.data.title}`} style={`background:${cover.bg}`} data-pixels>
+    <img class="blog-sticker" src={cover.sticker} alt="" width="200" height="200" loading="lazy" decoding="async" />
     <span class="blog-arrow" aria-hidden="true">↗</span>
   </a>
   <div class="blog-card-body">
