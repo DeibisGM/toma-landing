@@ -3,12 +3,15 @@ interface Props {
   src: string;
   alt: string;
   class?: string;
+  /** Imagen principal de la página (LCP). */
   priority?: boolean;
+  /** Cargar sin esperar al scroll (visible al abrir la página). */
+  eager?: boolean;
 }
 
-const { src, alt, class: className = '', priority = false } = Astro.props;
+const { src, alt, class: className = '', priority = false, eager = false } = Astro.props;
 ---
 
 <div class={`phone ${className}`}>
-  <img src={src} alt={alt} width="540" height="1200" loading={priority ? 'eager' : 'lazy'} decoding="async" />
+  <img src={src} alt={alt} width="720" height="1600" loading={priority || eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={priority ? 'high' : 'auto'} />
 </div>

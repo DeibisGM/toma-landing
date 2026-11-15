@@ -3,7 +3,7 @@ title: "Cómo dejar de discutir qué ver"
 description: "Un pequeño ritual para convertir la indecisión en una parte divertida de la noche."
 pubDate: 2026-11-08
 category: "Guías"
-image: "/images/shot-groups.png"
+image: "/images/shot-votar.webp"
 author: "Equipo Toma"
 readTime: "4 min de lectura"
 featured: true

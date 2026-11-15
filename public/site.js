@@ -1,57 +1,164 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var scrollFns = [];
+  function onScroll(fn) { scrollFns.push(fn); fn(); }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { ticking = false; scrollFns.forEach(function (f) { f(); }); });
+  }, { passive: true });
+  window.addEventListener('resize', function () { scrollFns.forEach(function (f) { f(); }); });
+
+  /* Cabecera */
+  var header = document.querySelector('[data-header]');
+  if (header) onScroll(function () { header.toggleAttribute('data-scrolled', window.scrollY > 12); });
 
   /* Menú móvil */
   var btn = document.querySelector('[data-menu-button]');
   var menu = document.querySelector('[data-menu]');
   if (btn && menu) {
+    var close = function () { btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-label', 'Abrir menú'); menu.removeAttribute('data-open'); };
     btn.addEventListener('click', function () {
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      menu.toggleAttribute('data-open', !open);
+      if (btn.getAttribute('aria-expanded') === 'true') { close(); return; }
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Cerrar menú');
+      menu.setAttribute('data-open', '');
     });
-    menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) { btn.setAttribute('aria-expanded', 'false'); menu.removeAttribute('data-open'); }
-    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.addEventListener('click', function (e) { if (!e.target.closest('.nav-capsule')) close(); });
   }
 
   /* Aparición al hacer scroll */
   var items = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window) {
+  if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.setAttribute('data-visible', ''); io.unobserve(en.target); }
+        if (en.isIntersecting) { en.target.setAttribute('data-visible', ''); io.unobserve(en.target); countUp(en.target); }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    items.forEach(function (el) {
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.95) el.setAttribute('data-visible', ''); else io.observe(el);
-    });
+    items.forEach(function (el) { io.observe(el); });
   } else {
     items.forEach(function (el) { el.setAttribute('data-visible', ''); });
   }
 
-  /* Botones de ejemplo (voto y ánimo) */
+  /* Números que cuentan hacia arriba */
+  function countUp(root) {
+    if (reduce) return;
+    root.querySelectorAll('[data-count]').forEach(function (el) {
+      var to = parseInt(el.getAttribute('data-count'), 10), t0 = performance.now(), dur = 1400;
+      (function step(now) {
+        var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = String(Math.round(to * e));
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    });
+  }
+
+  /* Abanico del hero: se abre al hacer scroll */
+  var stage = document.querySelector('[data-stage]');
+  if (stage && !reduce) onScroll(function () {
+    var p = Math.max(0, Math.min(1, window.scrollY / (window.innerHeight * 0.8)));
+    stage.style.setProperty('--sp', p.toFixed(3));
+  });
+
+  /* Manifiesto: las palabras se encienden al avanzar */
+  var statement = document.querySelector('[data-words]');
+  if (statement) {
+    var words = statement.querySelectorAll('.w');
+    onScroll(function () {
+      var r = statement.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var p = reduce ? 1 : (vh * 0.85 - r.top) / (r.height + vh * 0.3);
+      var lit = Math.round(Math.max(0, Math.min(1, p)) * words.length);
+      for (var i = 0; i < words.length; i++) words[i].classList.toggle('on', i < lit);
+    });
+  }
+
+  /* Votos del boleto: se mueven solos hasta que alguien toca */
   document.querySelectorAll('.vote-row').forEach(function (row) {
+    var btns = row.querySelectorAll('.vote-btn'), timer = null, idx = 0;
+    function select(b) { btns.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); }
     row.addEventListener('click', function (e) {
       var b = e.target.closest('.vote-btn');
       if (!b) return;
-      row.querySelectorAll('.vote-btn').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      if (timer) { clearInterval(timer); timer = null; }
+      select(b);
     });
+    if (row.hasAttribute('data-autovote') && !reduce) {
+      timer = setInterval(function () {
+        if (!row.getBoundingClientRect().height) return;
+        idx = (idx + 1) % btns.length; select(btns[idx]);
+      }, 1800);
+    }
   });
   document.querySelectorAll('.mood').forEach(function (m) {
     m.addEventListener('click', function () { m.setAttribute('aria-pressed', String(m.getAttribute('aria-pressed') !== 'true')); });
   });
 
-  /* Nube de pixeles: port fiel de PixelCloud.kt de la app (cuadrícula tenue + nubes de luz cuyo borde se deshace en pixeles con matriz de Bayer) */
+  /* «Para hoy»: los fondos rotan */
+  document.querySelectorAll('[data-spot]').forEach(function (spot) {
+    var bgs = spot.querySelectorAll('.cinema-bg img'), ts = spot.querySelectorAll('.spot-title'), picks = spot.querySelectorAll('.pick'), i = 0, timer = null, SLIDE = 6000;
+    if (bgs.length < 2) return;
+    spot.style.setProperty('--slide', SLIDE + 'ms');
+    function go(n) {
+      [bgs, ts, picks].forEach(function (l) { l[i].classList.remove('on'); });
+      picks[i].setAttribute('aria-selected', 'false');
+      i = n;
+      [bgs, ts, picks].forEach(function (l) { l[i].classList.add('on'); });
+      picks[i].setAttribute('aria-selected', 'true');
+      /* reinicia la barra de progreso */
+      var bar = picks[i].querySelector('.pick-bar i');
+      bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    }
+    function start() { if (timer) clearInterval(timer); if (!reduce) timer = setInterval(function () { if (!document.hidden) go((i + 1) % bgs.length); }, SLIDE); }
+    picks.forEach(function (p, n) { p.addEventListener('click', function () { go(n); start(); }); });
+    start();
+  });
+
+  /* Texto que se escribe solo (A tu medida) */
+  document.querySelectorAll('[data-typing]').forEach(function (el) {
+    if (reduce) return;
+    var lines = el.getAttribute('data-typing').split('|');
+    var li = 0, ci = lines[0].length, deleting = true, wait = 2600;
+    var caret = document.createElement('span');
+    caret.className = 'caret';
+    caret.setAttribute('aria-hidden', 'true');
+    var text = document.createTextNode(lines[0]);
+    el.textContent = '';
+    el.appendChild(text); el.appendChild(caret);
+    function tick() {
+      if (wait > 0) { var w = wait; wait = 0; return setTimeout(tick, w); }
+      if (deleting) {
+        ci--;
+        if (ci <= 0) { ci = 0; deleting = false; li = (li + 1) % lines.length; wait = 400; }
+      } else {
+        ci++;
+        if (ci >= lines[li].length) { deleting = true; wait = 2600; }
+      }
+      text.nodeValue = lines[li].slice(0, ci);
+      setTimeout(tick, deleting ? 22 : 48);
+    }
+    tick();
+  });
+
+  /* Nube de pixeles: port de PixelCloud.kt de la app (nubes de luz cuyo borde se deshace en pixeles con matriz de Bayer) */
   var BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
   var LAYOUTS = [
+    [[0.22, 0.30, 0.34], [0.80, 0.22, 0.30]],
     [[0.50, 1.04, 0.64], [1.05, 0.26, 0.40]],
-    [[0.06, 0.99, 0.56], [0.98, 0.14, 0.46]],
-    [[0.92, 1.02, 0.60], [0.00, 0.28, 0.42]]
+    [[0.92, 1.02, 0.60], [0.00, 0.28, 0.42]],
+    /* franjas anchas: nubes al pie, como en la portada de la app */
+    [[0.02, 1.02, 0.17], [0.98, 0.98, 0.19], [0.50, 1.30, 0.22]]
   ];
-  var CELL = 7, INNER = 0.58, OUTER = 1.12, SPEED = 0.3, STEP_MS = 100;
+  var INNER = 0.58, OUTER = 1.12, SPEED = 0.3, STEP_MS = 100;
   function setup(host) {
-    var layout = LAYOUTS[(parseInt(host.getAttribute('data-pixels'), 10) || 0) % LAYOUTS.length];
+    var li = (parseInt(host.getAttribute('data-pixels'), 10) || 0) % LAYOUTS.length;
+    var layout = LAYOUTS[li];
+    var tint = host.getAttribute('data-tint') || '255,255,255';
+    var base = parseFloat(host.getAttribute('data-alpha') || '0.095');
+    var CELL = parseInt(host.getAttribute('data-cell') || '7', 10);
     var cv = document.createElement('canvas');
     cv.className = 'pixel-canvas';
     cv.setAttribute('aria-hidden', 'true');
@@ -71,19 +178,15 @@
       var t = reduce ? 0 : (now - start) / 1000 * SPEED;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      /* cuadrícula: una línea de 1 px cada 40 px */
-      ctx.fillStyle = 'rgba(255,255,255,0.05)';
-      for (var x = 40; x < w; x += 40) ctx.fillRect(x, 0, 1, h);
-      for (var y = 40; y < h; y += 40) ctx.fillRect(0, y, w, 1);
-      var n = layout.length, cx = [], cy = [], r = [];
+      var n = layout.length, cx = [], cy = [], r = [], unit = li === 3 ? Math.max(w, 900) : Math.max(w, 600);
       for (var q = 0; q < n; q++) {
         var c = layout[q];
         cx[q] = c[0] * w + Math.sin(t * 0.35 + q * 1.7) * 0.035 * w;
         cy[q] = c[1] * h + Math.cos(t * 0.28 + q * 2.3) * 0.02 * h;
-        r[q] = c[2] * w * (1 + 0.05 * Math.sin(t * 0.6 + q * 1.1));
+        r[q] = c[2] * unit * (1 + 0.05 * Math.sin(t * 0.6 + q * 1.1));
       }
-      var base = 0.095;
-      ctx.fillStyle = 'rgba(255,255,255,' + base + ')';
+      var fill = 'rgba(' + tint + ',' + base + ')';
+      ctx.fillStyle = fill;
       for (var j = 0; j < rows; j++) {
         for (var i = 0; i < cols; i++) {
           var px = (i + 0.5) * CELL, py = (j + 0.5) * CELL, d = 1e9;
@@ -99,19 +202,10 @@
           if (p <= 0 || p * 16 <= BAYER[(j & 3) * 4 + (i & 3)]) continue;
           var dot = p >= 1 ? CELL : CELL * (0.55 + 0.45 * Math.min(p, 1));
           var twinkle = p >= 1 && s > 0.9;
-          if (twinkle) ctx.fillStyle = 'rgba(255,255,255,' + (base * (0.5 + 0.5 * (0.5 + 0.5 * Math.sin(t * 1.9 + s * 40)))).toFixed(3) + ')';
+          if (twinkle) ctx.fillStyle = 'rgba(' + tint + ',' + (base * (0.5 + 0.5 * (0.5 + 0.5 * Math.sin(t * 1.9 + s * 40)))).toFixed(3) + ')';
           ctx.fillRect(i * CELL + (CELL - dot) / 2, j * CELL + (CELL - dot) / 2, dot, dot);
-          if (twinkle) ctx.fillStyle = 'rgba(255,255,255,' + base + ')';
+          if (twinkle) ctx.fillStyle = fill;
         }
-      }
-      /* brillo suave en el centro de cada nube */
-      for (var g = 0; g < n; g++) {
-        var rad = r[g] * INNER;
-        var grad = ctx.createRadialGradient(cx[g], cy[g], 0, cx[g], cy[g], rad);
-        grad.addColorStop(0, 'rgba(255,255,255,0.07)');
-        grad.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath(); ctx.arc(cx[g], cy[g], rad, 0, 6.2832); ctx.fill();
       }
     }
     function loop(now) {

@@ -1,22 +1,28 @@
 ---
+const PLAY = 'https://play.google.com/store/apps/details?id=com.app.toma';
+const path = Astro.url.pathname;
+const links = [
+  ['/#funciones', 'Funciones'],
+  ['/#descubre', 'Descubre'],
+  ['/#premium', 'Premium'],
+  ['/blog/', 'Blog']
+];
 ---
 
-<header class="site-header">
-  <div class="site-header-inner">
+<header class="site-header" data-header>
+  <div class="nav-capsule">
     <a class="brand" href="/" aria-label="Toma, inicio">
-      <img src="/images/toma-logo.webp" alt="" width="34" height="36" />
+      <img src="/images/toma-logo.webp" alt="" width="28" height="30" />
       <span>Toma</span>
     </a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-button>
-      <span>Menú</span>
-      <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
-    </button>
     <nav id="site-menu" class="site-nav" data-menu aria-label="Principal">
-      <a href="/#funciones">Funciones</a>
-      <a href="/#como-funciona">Cómo funciona</a>
-      <a href="/#a-tu-medida">A tu medida</a>
-      <a href="/blog/">Blog</a>
-      <a class="btn btn-small" href="/#descarga">Descargar</a>
+      {links.map(([href, label]) => <a href={href} aria-current={href === '/blog/' && path.startsWith('/blog') ? 'page' : undefined}>{label}</a>)}
     </nav>
+    <div class="nav-end">
+      <a class="btn btn-primary btn-small" href={PLAY} rel="noreferrer">Descargar</a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Abrir menú" data-menu-button>
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
   </div>
 </header>

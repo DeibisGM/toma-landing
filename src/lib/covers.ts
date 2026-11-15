@@ -1,9 +1,12 @@
-// Portadas del blog con la identidad de Toma: color de la paleta + pegatina 3D.
-const covers: Record<string, { bg: string; sticker: string; ink: string }> = {
-  'Guías': { bg: '#2b66ee', sticker: '/stickers/sk_sofa.webp', ink: '#fff' },
-  'Novedades': { bg: '#6a45f2', sticker: '/stickers/sk_destello.webp', ink: '#fff' },
-  'Listas': { bg: '#ff7a30', sticker: '/stickers/sk_palomitas.webp', ink: '#fff' },
-  'Consejos': { bg: '#3dd9a0', sticker: '/stickers/sk_lista.webp', ink: '#05281c' }
+// Color de portada del blog por categoría, tomado de la paleta de la app (TomaColors).
+const covers: Record<string, [string, string]> = {
+  'Guías': ['#7a55ff', '#5530d9'],
+  'Novedades': ['#3b78ff', '#1e4fd6'],
+  'Listas': ['#ff8a45', '#f05a12'],
+  'Consejos': ['#3dd9a0', '#16a874']
 };
-const fallback = { bg: '#2b66ee', sticker: '/stickers/sk_claqueta.webp', ink: '#fff' };
-export const coverFor = (category: string) => covers[category] ?? fallback;
+
+export const coverStyle = (category: string) => {
+  const [c1, c2] = covers[category] ?? covers['Novedades'];
+  return `--c1:${c1};--c2:${c2}`;
+};

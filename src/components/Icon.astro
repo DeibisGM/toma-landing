@@ -1,0 +1,25 @@
+---
+// Iconos Phosphor (los mismos que usa la app). Se leen del paquete en tiempo de compilación y se insertan como SVG.
+import fs from 'node:fs';
+import path from 'node:path';
+
+type Weight = 'regular' | 'bold' | 'fill' | 'duotone';
+interface Props { name: string; weight?: Weight; class?: string }
+const { name, weight = 'bold', class: className } = Astro.props;
+
+const alias: Record<string, string> = {
+  arrow: 'arrow-right', bookmark: 'bookmark-simple', users: 'users-three', tv: 'television-simple', bell: 'bell-simple-ringing',
+  search: 'magnifying-glass', mic: 'microphone', globe: 'globe-simple', film: 'film-strip', thumbUp: 'thumbs-up',
+  thumbDown: 'thumbs-down', equal: 'equals', googleplay: 'google-play-logo', calendar: 'calendar-blank', gauge: 'gauge'
+};
+const file = alias[name] ?? name;
+const dir = path.join(process.cwd(), 'node_modules', '@phosphor-icons', 'core', 'assets', weight);
+const svgPath = path.join(dir, weight === 'regular' ? `${file}.svg` : `${file}-${weight}.svg`);
+let inner = '';
+try {
+  inner = fs.readFileSync(svgPath, 'utf8').replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+} catch {
+  throw new Error(`Icono Phosphor no encontrado: ${file} (${weight})`);
+}
+---
+<svg class={className} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" set:html={inner} />

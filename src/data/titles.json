@@ -1,0 +1,440 @@
+[
+ {
+  "id": 1368337,
+  "kind": "Película",
+  "title": "La Odisea",
+  "year": "2026",
+  "rating": 4.0,
+  "genres": [
+   "Aventura",
+   "Acción"
+  ],
+  "poster": "/images/posters/movie-1368337.webp",
+  "backdrop": "/images/posters/bd-movie-1368337.webp"
+ },
+ {
+  "id": 1400837,
+  "kind": "Película",
+  "title": "Madre siniestra",
+  "year": "2026",
+  "rating": 3.2,
+  "genres": [
+   "Terror",
+   "Misterio"
+  ],
+  "poster": "/images/posters/movie-1400837.webp",
+  "backdrop": "/images/posters/bd-movie-1400837.webp"
+ },
+ {
+  "id": 1423191,
+  "kind": "Película",
+  "title": "Resident Evil: Noche cero",
+  "year": "2026",
+  "rating": 3.8,
+  "genres": [
+   "Terror",
+   "Ciencia ficción"
+  ],
+  "poster": "/images/posters/movie-1423191.webp",
+  "backdrop": "/images/posters/bd-movie-1423191.webp"
+ },
+ {
+  "id": 1263337,
+  "kind": "Película",
+  "title": "El corazón de la bestia",
+  "year": "2026",
+  "rating": 3.8,
+  "genres": [
+   "Aventura",
+   "Suspense"
+  ],
+  "poster": "/images/posters/movie-1263337.webp",
+  "backdrop": "/images/posters/bd-movie-1263337.webp"
+ },
+ {
+  "id": 1567605,
+  "kind": "Película",
+  "title": "Ebenezer: Los fantasmas de Navidad",
+  "year": "2026",
+  "rating": 3.8,
+  "genres": [
+   "Fantasía",
+   "Comedia"
+  ],
+  "poster": "/images/posters/movie-1567605.webp",
+  "backdrop": "/images/posters/bd-movie-1567605.webp"
+ },
+ {
+  "id": 1381071,
+  "kind": "Película",
+  "title": "Godzilla Minus Zero",
+  "year": "2026",
+  "rating": 3.9,
+  "genres": [
+   "Ciencia ficción",
+   "Terror"
+  ],
+  "poster": "/images/posters/movie-1381071.webp",
+  "backdrop": "/images/posters/bd-movie-1381071.webp"
+ },
+ {
+  "id": 969681,
+  "kind": "Película",
+  "title": "Spider-Man: Un nuevo día",
+  "year": "2026",
+  "rating": 4.2,
+  "genres": [
+   "Ciencia ficción",
+   "Acción"
+  ],
+  "poster": "/images/posters/movie-969681.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1375441,
+  "kind": "Película",
+  "title": "Primetime",
+  "year": "2026",
+  "rating": 3.4,
+  "genres": [
+   "Suspense",
+   "Drama"
+  ],
+  "poster": "/images/posters/movie-1375441.webp",
+  "backdrop": null
+ },
+ {
+  "id": 656908,
+  "kind": "Película",
+  "title": "Ramayana: El Nacimiento de una Leyenda",
+  "year": "2026",
+  "rating": 3.7,
+  "genres": [
+   "Fantasía",
+   "Acción"
+  ],
+  "poster": "/images/posters/movie-656908.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1400940,
+  "kind": "Película",
+  "title": "Clayface",
+  "year": "2026",
+  "rating": 3.7,
+  "genres": [
+   "Terror",
+   "Suspense"
+  ],
+  "poster": "/images/posters/movie-1400940.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1483525,
+  "kind": "Película",
+  "title": "Un amor posible",
+  "year": "2026",
+  "rating": 3.7,
+  "genres": [
+   "Drama"
+  ],
+  "poster": "/images/posters/movie-1483525.webp",
+  "backdrop": null
+ },
+ {
+  "id": 791523,
+  "kind": "Película",
+  "title": "Wildwood: El bosque salvaje",
+  "year": "2026",
+  "rating": 4.2,
+  "genres": [
+   "Animación",
+   "Fantasía"
+  ],
+  "poster": "/images/posters/movie-791523.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1058424,
+  "kind": "Película",
+  "title": "Hope: El primer impacto",
+  "year": "2026",
+  "rating": 3.4,
+  "genres": [
+   "Ciencia ficción",
+   "Misterio"
+  ],
+  "poster": "/images/posters/movie-1058424.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1153576,
+  "kind": "Película",
+  "title": "Street Fighter",
+  "year": "2026",
+  "rating": 3.1,
+  "genres": [
+   "Acción",
+   "Comedia"
+  ],
+  "poster": "/images/posters/movie-1153576.webp",
+  "backdrop": null
+ },
+ {
+  "id": 891621,
+  "kind": "Película",
+  "title": "Caballo salvaje nueve",
+  "year": "2026",
+  "rating": 4.0,
+  "genres": [
+   "Comedia",
+   "Crimen"
+  ],
+  "poster": "/images/posters/movie-891621.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1377237,
+  "kind": "Película",
+  "title": "Entrega al límite",
+  "year": "2026",
+  "rating": 4.1,
+  "genres": [
+   "Acción",
+   "Comedia"
+  ],
+  "poster": "/images/posters/movie-1377237.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1503762,
+  "kind": "Película",
+  "title": "Sensatez y sentimiento",
+  "year": "2026",
+  "rating": 3.6,
+  "genres": [
+   "Drama",
+   "Romance"
+  ],
+  "poster": "/images/posters/movie-1503762.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1255833,
+  "kind": "Película",
+  "title": "La caída de la ballena",
+  "year": "2026",
+  "rating": 3.3,
+  "genres": [
+   "Suspense"
+  ],
+  "poster": "/images/posters/movie-1255833.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1284046,
+  "kind": "Película",
+  "title": "Aniquilación",
+  "year": "2026",
+  "rating": 2.8,
+  "genres": [
+   "Acción",
+   "Suspense"
+  ],
+  "poster": "/images/posters/movie-1284046.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1366,
+  "kind": "Película",
+  "title": "Rocky",
+  "year": "1977",
+  "rating": 3.9,
+  "genres": [
+   "Drama"
+  ],
+  "poster": "/images/posters/movie-1366.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1281331,
+  "kind": "Película",
+  "title": "El poder de la red",
+  "year": "2026",
+  "rating": 3.5,
+  "genres": [
+   "Drama",
+   "Suspense"
+  ],
+  "poster": "/images/posters/movie-1281331.webp",
+  "backdrop": null
+ },
+ {
+  "id": 3933,
+  "kind": "Película",
+  "title": "El cadáver de la novia",
+  "year": "2005",
+  "rating": 3.8,
+  "genres": [
+   "Romance",
+   "Fantasía"
+  ],
+  "poster": "/images/posters/movie-3933.webp",
+  "backdrop": null
+ },
+ {
+  "id": 84773,
+  "kind": "Serie",
+  "title": "El Señor de los Anillos: Los Anillos de Poder",
+  "year": "2022",
+  "rating": 3.6,
+  "genres": [
+   "Action & Adventure",
+   "Sci-Fi & Fantasy"
+  ],
+  "poster": "/images/posters/tv-84773.webp",
+  "backdrop": null
+ },
+ {
+  "id": 213375,
+  "kind": "Serie",
+  "title": "VisionQuest",
+  "year": "2026",
+  "rating": 4.2,
+  "genres": [
+   "Sci-Fi & Fantasy",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-213375.webp",
+  "backdrop": null
+ },
+ {
+  "id": 291507,
+  "kind": "Serie",
+  "title": "El cuerpo",
+  "year": "2026",
+  "rating": 3.8,
+  "genres": [
+   "Misterio",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-291507.webp",
+  "backdrop": null
+ },
+ {
+  "id": 247718,
+  "kind": "Serie",
+  "title": "Tierra de Mafia",
+  "year": "2025",
+  "rating": 4.3,
+  "genres": [
+   "Crimen",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-247718.webp",
+  "backdrop": null
+ },
+ {
+  "id": 1489,
+  "kind": "Serie",
+  "title": "Jimmy Kimmel Live!",
+  "year": "2003",
+  "rating": 2.6,
+  "genres": [
+   "Talk",
+   "Comedia"
+  ],
+  "poster": "/images/posters/tv-1489.webp",
+  "backdrop": null
+ },
+ {
+  "id": 259909,
+  "kind": "Serie",
+  "title": "Dexter: Resurrección",
+  "year": "2025",
+  "rating": 4.2,
+  "genres": [
+   "Crimen",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-259909.webp",
+  "backdrop": null
+ },
+ {
+  "id": 292741,
+  "kind": "Serie",
+  "title": "Nocturno",
+  "year": "2026",
+  "rating": 3.8,
+  "genres": [
+   "Crimen",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-292741.webp",
+  "backdrop": null
+ },
+ {
+  "id": 279246,
+  "kind": "Serie",
+  "title": "La emperatriz divorciada",
+  "year": "2026",
+  "rating": 4.3,
+  "genres": [
+   "Drama",
+   "Sci-Fi & Fantasy"
+  ],
+  "poster": "/images/posters/tv-279246.webp",
+  "backdrop": null
+ },
+ {
+  "id": 293610,
+  "kind": "Serie",
+  "title": "Doctora X",
+  "year": "2026",
+  "rating": 4.4,
+  "genres": [
+   "Misterio",
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-293610.webp",
+  "backdrop": null
+ },
+ {
+  "id": 85077,
+  "kind": "Serie",
+  "title": "Los elegidos",
+  "year": "2019",
+  "rating": 4.4,
+  "genres": [
+   "Action & Adventure",
+   "Familia"
+  ],
+  "poster": "/images/posters/tv-85077.webp",
+  "backdrop": null
+ },
+ {
+  "id": 312359,
+  "kind": "Serie",
+  "title": "Dragon Ball Super: Beerus",
+  "year": "2026",
+  "rating": 4.8,
+  "genres": [
+   "Animación",
+   "Action & Adventure"
+  ],
+  "poster": "/images/posters/tv-312359.webp",
+  "backdrop": null
+ },
+ {
+  "id": 131488,
+  "kind": "Serie",
+  "title": "La emperatriz",
+  "year": "2022",
+  "rating": 3.9,
+  "genres": [
+   "Drama"
+  ],
+  "poster": "/images/posters/tv-131488.webp",
+  "backdrop": null
+ }
+]

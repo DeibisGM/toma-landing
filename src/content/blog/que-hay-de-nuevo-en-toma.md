@@ -3,7 +3,7 @@ title: "Qué hay de nuevo en Toma"
 description: "Una mirada breve a las mejoras que estamos preparando para que decidir sea cada vez más sencillo."
 pubDate: 2026-10-24
 category: "Novedades"
-image: "/images/shot-detail.png"
+image: "/images/shot-ficha-duna.webp"
 author: "Equipo Toma"
 readTime: "3 min de lectura"
 featured: false

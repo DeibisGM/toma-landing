@@ -15,7 +15,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
   <section class="blog-list section-wrap">
     <div class="blog-list-header"><span>{posts.length} historias</span><span>Actualizado con calma</span></div>
     <div class="blog-grid blog-grid-large">
-      {posts.map((post) => <BlogCard post={post} featured={post.data.featured} />)}
+      {posts.map((post) => <BlogCard post={post} />)}
     </div>
   </section>
 </BaseLayout>

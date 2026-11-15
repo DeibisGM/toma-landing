@@ -4,7 +4,11 @@ Landing estática para Toma, construida con Astro.
 
 ![Vista previa de la landing](public/readme-preview.png)
 
-La landing usa la identidad de la app: cobalto de marca con la nube de pixeles, boletos amarillos, pegatinas 3D y capturas reales (Sora + Inter, paleta de `TomaColors`).
+La landing usa la identidad de la app: modo oscuro, cobalto con la nube de pixeles (port de `PixelCloud.kt`), el boleto amarillo, iconos Phosphor y capturas reales de la app (Sora + Inter, paleta de `TomaColors`).
+
+## Títulos de TMDB
+
+Los pósters y fondos de «Descubre», «Tendencias» y el muro de pósters salen de TMDB y viven en `public/images/posters/`, con sus datos en `src/data/titles.json`. Para actualizarlos, vuelve a consultar la tendencia de la semana con el `TMDB_READ_TOKEN` del backend y reemplaza ambos. El pie de página lleva la atribución que exige TMDB.
 
 ## Desarrollo
 
