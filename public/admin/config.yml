@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: TU_USUARIO/toma-landing
-  branch: main
+  branch: master
   site_domain: toma.app
   base_url: https://toma.app
   auth_endpoint: /api/auth
