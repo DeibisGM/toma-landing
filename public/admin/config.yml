@@ -1,0 +1,33 @@
+backend:
+  name: github
+  repo: TU_USUARIO/toma-landing
+  branch: main
+  site_domain: toma.app
+  base_url: https://toma.app
+  auth_endpoint: /api/auth
+
+media_folder: public/images/blog
+public_folder: /images/blog
+
+publish_mode: editorial_workflow
+locale: es
+
+collections:
+  - name: blog
+    label: Artículos
+    label_singular: Artículo
+    folder: src/content/blog
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}} · {{pubDate}}'
+    sortable_fields: ['pubDate', 'title']
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Fecha de publicación, name: pubDate, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD/MM/YYYY', time_format: false }
+      - { label: Categoría, name: category, widget: string }
+      - { label: Imagen de portada, name: image, widget: image }
+      - { label: Autor, name: author, widget: string, default: 'Equipo Toma' }
+      - { label: Tiempo de lectura, name: readTime, widget: string, default: '5 min de lectura' }
+      - { label: Destacado, name: featured, widget: boolean, default: false }
+      - { label: Contenido, name: body, widget: markdown }

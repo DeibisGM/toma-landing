@@ -1,0 +1,32 @@
+---
+interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      category: string;
+      image: string;
+      readTime: string;
+    };
+  };
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const href = `/blog/${post.id}/`;
+---
+
+<article class:list={["blog-card", { featured }]}>
+  <a class="blog-image" href={href} aria-label={`Leer ${post.data.title}`}>
+    <img src={post.data.image} alt="" width="1200" height="800" loading="lazy" decoding="async" />
+    <span class="blog-arrow" aria-hidden="true">↗</span>
+  </a>
+  <div class="blog-card-body">
+    <div class="blog-meta"><span>{post.data.category}</span><span>{post.data.readTime}</span></div>
+    <h3><a href={href}>{post.data.title}</a></h3>
+    <p>{post.data.description}</p>
+    <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}</time>
+  </div>
+</article>

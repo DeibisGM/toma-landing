@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog | Toma" description="Noticias, ideas y recomendaciones para elegir mejor qué ver.">
+  <section class="page-hero section-wrap" data-reveal>
+    <p class="eyebrow"><span class="eyebrow-line"></span> Desde la cabina de Toma</p>
+    <h1>Para cuando quieres<br /><em>ver algo bueno.</em></h1>
+    <p>Noticias de la app, listas para maratonear y conversaciones sobre las historias que se quedan contigo.</p>
+  </section>
+  <section class="blog-list section-wrap">
+    <div class="blog-list-header"><span>{posts.length} historias</span><span>Actualizado con calma</span></div>
+    <div class="blog-grid blog-grid-large">
+      {posts.map((post) => <BlogCard post={post} featured={post.data.featured} />)}
+    </div>
+  </section>
+</BaseLayout>

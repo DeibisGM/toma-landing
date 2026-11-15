@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const featuredPost = posts.find((post) => post.data.featured) ?? posts[0];
+const latestPosts = posts.slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero section-wrap">
+    <div class="hero-copy" data-reveal>
+      <p class="eyebrow"><span class="eyebrow-line"></span> Una app para elegir juntos</p>
+      <h1>¿Qué vemos <em>hoy?</em></h1>
+      <p class="hero-lede">Toma guarda lo que te interesa, entiende tus gustos y encuentra algo que todos quieran ver.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#descarga">Descarga Toma <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="#como-funciona">Ver cómo funciona <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-note"><span class="status-dot" aria-hidden="true"></span> Hecha para esas noches de “lo que sea”</div>
+    </div>
+    <div class="hero-stage" data-reveal>
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+      <div class="hero-caption caption-top"><strong>+1</strong><span>una decisión<br />menos</span></div>
+      <PhoneFrame class="hero-phone" src="/images/shot-pick.png" alt="Pantalla de elección de grupo en Toma" priority />
+      <div class="hero-caption caption-bottom"><span class="caption-kicker">Toma / 01</span><strong>Tu próxima<br />historia</strong></div>
+    </div>
+  </section>
+
+  <section class="marquee-strip" aria-label="Lo que puedes hacer con Toma">
+    <div class="marquee-track"><span>Guardar</span><i>✦</i><span>Descubrir</span><i>✦</i><span>Compartir</span><i>✦</i><span>Elegir</span><i>✦</i><span>Guardar</span><i>✦</i><span>Descubrir</span></div>
+  </section>
+
+  <section class="intro section-wrap" id="funciones" data-reveal>
+    <div class="section-heading">
+      <p class="eyebrow"><span class="eyebrow-line"></span> La idea</p>
+      <h2>No es otra lista de pendientes<span class="accent-dot">.</span></h2>
+    </div>
+    <div class="intro-copy">
+      <p>Es el lugar donde tus gustos, los de tus amigos y el momento se ponen de acuerdo.</p>
+      <p class="muted">Porque encontrar algo bueno debería sentirse como el comienzo de la noche, no como otra tarea.</p>
+    </div>
+  </section>
+
+  <section class="feature-featured section-wrap" id="como-funciona">
+    <div class="feature-visual visual-blue" data-reveal>
+      <div class="visual-label">01 / Tu gusto, en contexto</div>
+      <PhoneFrame src="/images/shot-home.png" alt="Lista personal de películas y series en Toma" />
+    </div>
+    <div class="feature-copy" data-reveal>
+      <p class="eyebrow"><span class="eyebrow-line"></span> Guarda sin perderte</p>
+      <h2>Todo lo que quieres ver, en un solo sitio.</h2>
+      <p>Películas, series y anime. Toma convierte cada “algún día” en una lista que sí vuelves a abrir.</p>
+      <a class="text-link" href="#descarga">Empieza tu lista <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="feature-split section-wrap">
+    <div class="feature-copy" data-reveal>
+      <p class="eyebrow"><span class="eyebrow-line"></span> Decidan en grupo</p>
+      <h2>La indecisión también se puede compartir.</h2>
+      <p>Crea un grupo, invita a tus amigos y deja que Toma encuentre el punto medio entre lo que todos quieren ver.</p>
+      <div class="quote-mark" aria-hidden="true">“</div>
+      <p class="quote">Por fin una lista que no se queda en la conversación.</p>
+    </div>
+    <div class="feature-visual visual-violet" data-reveal>
+      <div class="visual-label">02 / Una elección compartida</div>
+      <PhoneFrame src="/images/shot-groups.png" alt="Grupos para decidir qué ver en Toma" />
+    </div>
+  </section>
+
+  <section class="ticket-section section-wrap" data-reveal>
+    <div class="ticket-card">
+      <div class="ticket-topline"><span>TOMA SELECTS</span><span>PARA ESTA NOCHE</span></div>
+      <div class="ticket-content">
+        <div>
+          <p class="eyebrow dark-eyebrow">La parte divertida</p>
+          <h2>Una sugerencia que sí provoca darle play.</h2>
+        </div>
+        <span class="ticket-star" aria-hidden="true">✦</span>
+      </div>
+      <div class="ticket-footer"><span>Sin discusiones eternas</span><span>→</span></div>
+    </div>
+  </section>
+
+  <section class="feature-featured section-wrap detail-feature">
+    <div class="feature-visual visual-red" data-reveal>
+      <div class="visual-label">03 / Conoce la historia</div>
+      <PhoneFrame src="/images/shot-detail.png" alt="Ficha de una película con detalles y recomendaciones en Toma" />
+    </div>
+    <div class="feature-copy" data-reveal>
+      <p class="eyebrow"><span class="eyebrow-line"></span> Descubre algo nuevo</p>
+      <h2>Más contexto. Menos pestañas abiertas.</h2>
+      <p>Explora detalles, trailers, plataformas y recomendaciones que encajan contigo. Todo antes de presionar ver.</p>
+      <a class="text-link" href="/blog/">Pasa por el blog <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="steps-section section-wrap" data-reveal>
+    <div class="section-heading compact-heading">
+      <p class="eyebrow"><span class="eyebrow-line"></span> Así de fácil</p>
+      <h2>De “¿qué vemos?” a <em>play</em>.</h2>
+    </div>
+    <div class="steps-list">
+      <div class="step-row"><span class="step-number">01</span><div><h3>Guarda tus ideas</h3><p>Ten a mano todo lo que te llama la atención.</p></div><span class="step-symbol">+</span></div>
+      <div class="step-row"><span class="step-number">02</span><div><h3>Invita a tu gente</h3><p>Comparte grupos y arma una noche en dos toques.</p></div><span class="step-symbol">↗</span></div>
+      <div class="step-row"><span class="step-number">03</span><div><h3>Elijan algo</h3><p>Dejen que Toma encuentre la opción que encaja.</p></div><span class="step-symbol">▶</span></div>
+    </div>
+  </section>
+
+  <section class="blog-preview section-wrap" data-reveal>
+    <div class="section-heading blog-heading">
+      <div><p class="eyebrow"><span class="eyebrow-line"></span> Desde la cabina</p><h2>Historias para ver y conversar.</h2></div>
+      <a class="text-link" href="/blog/">Ver todo el blog <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="blog-grid">
+      {latestPosts.map((post) => <BlogCard post={post} featured={post.id === featuredPost?.id} />)}
+    </div>
+  </section>
+
+  <section class="faq-teaser section-wrap" id="preguntas" data-reveal>
+    <div><p class="eyebrow"><span class="eyebrow-line"></span> Antes de darle play</p><h2>Preguntas honestas,<br /><em>respuestas claras.</em></h2></div>
+    <div class="faq-teaser-side"><p>¿Toma es gratis? ¿Dónde puedo descargarla? ¿Qué pasa con mis datos?</p><a class="button button-outline" href="/preguntas-frecuentes/">Ver preguntas frecuentes <span aria-hidden="true">↗</span></a></div>
+  </section>
+
+  <section class="download-section section-wrap" id="descarga" data-reveal>
+    <div class="download-art"><img src="/images/toma-mascota.webp" alt="Ilustración de Toma" width="460" height="460" loading="lazy" /></div>
+    <div class="download-copy"><p class="eyebrow"><span class="eyebrow-line"></span> La próxima función empieza aquí</p><h2>Tu siguiente historia está a un toque.</h2><p>Descarga Toma y deja que la próxima decisión sea la parte fácil.</p><a class="button button-primary" href="https://play.google.com/store/apps/details?id=com.app.toma" rel="noreferrer">Disponible en Google Play <span aria-hidden="true">↗</span></a><small>Android 8.0 o superior</small></div>
+  </section>
+</BaseLayout>
