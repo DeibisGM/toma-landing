@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .astro/
+.chrome-preview-profile*/
 .env
 .env.*
 !.env.example

@@ -2,6 +2,10 @@
 
 Landing estática para Toma, construida con Astro.
 
+![Vista previa de la landing](public/readme-preview.png)
+
+La portada usa las capturas reales de la app, una navegación responsive y un lenguaje visual oscuro, editorial y orientado a producto.
+
 ## Desarrollo
 
 ```bash
