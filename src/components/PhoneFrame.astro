@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   src: string;
   alt: string;
@@ -13,5 +15,13 @@ const { src, alt, class: className = '', priority = false, eager = false } = Ast
 ---
 
 <div class={`phone ${className}`}>
-  <img src={src} alt={alt} width="720" height="1600" loading={priority || eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={priority ? 'high' : 'auto'} />
+  <div class="screen">
+    <!-- Barra de estado: las capturas empiezan en la barra superior de la app y el redondeado la cortaba -->
+    <div class="status" aria-hidden="true">
+      <span>9:41</span>
+      <i class="cam"></i>
+      <span class="sys"><Icon name="cell-signal-full" weight="fill" /><Icon name="wifi-high" weight="fill" /><Icon name="battery-full" weight="fill" /></span>
+    </div>
+    <img src={src} alt={alt} width="720" height="1533" loading={priority || eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={priority ? 'high' : 'auto'} />
+  </div>
 </div>

@@ -6,42 +6,57 @@ import Icon from '../components/Icon.astro';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.app.toma';
 
 const chips = [
-  ['bookmark', 'Tu lista'],
-  ['users', 'Grupos y votación'],
+  ['bookmark', 'Mi lista'],
+  ['users', 'Grupos'],
+  ['thumbUp', 'Votaciones'],
   ['gauge', 'Afinidad'],
-  ['tv', 'Dónde ver'],
+  ['tv', 'Dónde verla'],
   ['bell', 'Avisos de estreno'],
-  ['sparkle', 'A tu medida']
+  ['sparkle', 'Recomendaciones'],
+  ['fire', 'Tendencias'],
+  ['mic', 'Búsqueda por voz'],
+  ['clock-counter-clockwise', 'Historial']
 ];
 
 const steps = [
-  ['bookmark', 'Guarda', 'Lo que te llama la atención, en un toque.'],
-  ['users', 'Invita', 'Tu gente se une al grupo y propone.'],
-  ['play', 'Mira', 'Todos votan y Toma elige la ganadora.']
+  ['bookmark', 'Guarda', 'Añade a tu lista las películas y series que te interesan.'],
+  ['users', 'Crea un grupo', 'Invita a tus amigos o a tu pareja. Cada uno propone títulos.'],
+  ['thumbUp', 'Vota', 'Todos votan y Toma te dice cuál ver.']
+];
+
+const stickers = [
+  ['popcorn', 's1'],
+  ['ticket', 's2'],
+  ['thumbUp', 's3'],
+  ['star', 's4']
 ];
 ---
 
 <BaseLayout>
-  <!-- HERO -->
-  <section class="hero wrap">
-    <span class="pill"><Icon name="googleplay" weight="fill" />Gratis en Android</span>
-    <h1>Deja de discutir qué ver esta noche.</h1>
-    <p class="lede">Guarda lo que quieres ver y decídelo con tu gente en segundos.</p>
-    <div class="actions">
-      <a class="btn btn-dark" href={PLAY} rel="noreferrer"><Icon name="googleplay" weight="fill" />Descargar gratis</a>
-      <a class="btn btn-light" href="#como-funciona">Cómo funciona</a>
-    </div>
+  <!-- HERO: cobalto con nube de pixeles al pie -->
+  <section class="hero-band">
+    <div class="hero-pixels" data-pixels="3" data-tint="170,205,255" data-alpha="0.26" data-cell="10" aria-hidden="true"></div>
+    <div class="hero wrap">
+      <span class="pill"><Icon name="googleplay" weight="fill" />Disponible en Google Play</span>
+      <h1>Decide qué ver con tus amigos.</h1>
+      <p class="lede">Guarda películas y series, crea un grupo y vota. Toma elige la que más gusta a todos.</p>
+      <div class="actions">
+        <a class="btn btn-dark" href={PLAY} rel="noreferrer"><Icon name="googleplay" weight="fill" />Descargar gratis</a>
+        <a class="btn btn-glass" href="#como-funciona">Ver cómo funciona<Icon name="arrow-down" /></a>
+      </div>
 
-    <div class="trio">
-      <PhoneFrame class="side side-l" src="/images/shot-lista.webp" alt="Mi lista en Toma con 10 títulos por ver" eager />
-      <PhoneFrame class="main" src="/images/shot-pick.webp" alt="Elección de hoy del grupo: Madre siniestra, con los votos Quiero, Da igual y Paso" priority />
-      <PhoneFrame class="side side-r" src="/images/shot-ficha.webp" alt="Ficha de Spider-Man: A través del Spider-Verso con afinidad y dónde verla" eager />
+      <div class="trio">
+        {stickers.map(([icon, pos]) => <span class={`sticker ${pos}`} aria-hidden="true"><Icon name={icon} weight="fill" /></span>)}
+        <PhoneFrame class="side side-l" src="/images/shot-lista.webp" alt="Mi lista en Toma con 10 títulos por ver" eager />
+        <PhoneFrame class="main" src="/images/shot-pick.webp" alt="Elección de hoy del grupo: Madre siniestra, con los votos Quiero, Da igual y Paso" priority />
+        <PhoneFrame class="side side-r" src="/images/shot-ficha.webp" alt="Ficha de Spider-Man: A través del Spider-Verso con afinidad y dónde verla" eager />
+      </div>
     </div>
   </section>
 
   <!-- FUNCIONES -->
   <section class="wrap chips-wrap" id="funciones">
-    <p class="caption">Todo en una sola app</p>
+    <p class="caption">Funciones</p>
     <ul class="chips">
       {chips.map(([icon, label]) => <li><Icon name={icon} weight="fill" />{label}</li>)}
     </ul>
@@ -49,11 +64,12 @@ const steps = [
 
   <!-- CÓMO FUNCIONA -->
   <section class="wrap section center" id="como-funciona">
-    <h2>Guarda, vota, mira.</h2>
-    <p class="sub">Tres pasos y a darle play.</p>
+    <h2>Cómo funciona</h2>
+    <p class="sub">De la lista a la película en tres pasos.</p>
     <ol class="steps">
-      {steps.map(([icon, title, text]) => (
+      {steps.map(([icon, title, text], i) => (
         <li data-reveal>
+          <span class="step-num">{i + 1}</span>
           <span class="step-icon"><Icon name={icon} weight="fill" /></span>
           <h3>{title}</h3>
           <p>{text}</p>
@@ -66,9 +82,12 @@ const steps = [
   <section class="wrap section center" id="descarga">
     <div class="cta" data-reveal>
       <img class="cta-logo" src="/images/toma-logo.webp" alt="" width="72" height="77" loading="lazy" />
-      <h2>Tu próxima noche de cine empieza aquí.</h2>
+      <h2>Descarga Toma gratis.</h2>
       <a class="btn btn-dark" href={PLAY} rel="noreferrer"><Icon name="googleplay" weight="fill" />Descargar en Google Play</a>
-      <small>Gratis · Android 8.0 o superior</small>
+      <ul class="cta-facts">
+        <li><Icon name="check-circle" weight="fill" />Gratis</li>
+        <li><Icon name="android-logo" weight="fill" />Android 8.0 o superior</li>
+      </ul>
     </div>
   </section>
 </BaseLayout>
